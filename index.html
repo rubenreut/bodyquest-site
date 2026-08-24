@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BodyQuest — 3D anatomy you actually recall</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--ink:#0f1723;--ink2:#3d4b5c;--ink3:#78879a;--line:#e3e9f0;--accent:#2563eb}
+@media (prefers-color-scheme:dark){:root{--bg:#0d1219;--card:#151d28;--ink:#eef3f9;--ink2:#b8c4d2;--ink3:#7c8b9d;--line:#243040}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:48px 20px 96px}
+main{max-width:760px;margin:0 auto}
+h1{font-size:40px;margin:0 0 6px;letter-spacing:-.03em}
+.tag{color:var(--ink3);font-size:18px;margin:0 0 36px}
+h2{font-size:20px;margin:40px 0 12px;letter-spacing:-.01em}
+p,li{color:var(--ink2)}
+ul{padding-left:20px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:26px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.card h3{margin:0 0 6px;font-size:16px;color:var(--ink)}
+.card p{margin:0;font-size:15px}
+a{color:var(--accent)}
+.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px;margin:22px 0}
+.qa h3{font-size:16px;margin:18px 0 6px;color:var(--ink)}
+.qa p{margin:0 0 18px;font-size:15px}
+footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink3);font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<h1>BodyQuest</h1>
+<p class="tag">3D anatomy you actually recall.</p>
+
+<p>A complete human body you can spin, peel and tap, wired to a spaced-repetition engine that decides what to ask you and when. Built for medical, dental, physio, nursing and sports-science students who have to <em>keep</em> the names, not just meet them once.</p>
+
+<div class="grid">
+  <div class="card"><h3>872 structures</h3><p>Bones, muscles, organs, vessels and the full nervous system — brain, cord, plexuses and named nerves.</p></div>
+  <div class="card"><h3>Seven ways to be asked</h3><p>Tap it on the body, name it, type it, hear it, odd-one-out, name the nerve that supplies it, and clinical cases.</p></div>
+  <div class="card"><h3>Innervation built in</h3><p>Every one of the 212 muscles carries its nerve supply with root values, linked to the nerve in the model.</p></div>
+  <div class="card"><h3>Works offline</h3><p>The whole atlas is in the download. No account, no sign-in, nothing to sync.</p></div>
+</div>
+
+<h2>Support</h2>
+<p>Found a bug, spotted a factual error in the anatomy, or want something added? <a href="https://github.com/rubenreut/bodyquest-site/issues">Open an issue</a> and it will be read.</p>
+<p>Corrections to anatomical content are especially welcome — say which structure and what is wrong, and it gets fixed in the next update.</p>
+
+<div class="qa">
+  <h3>Do I need an account?</h3>
+  <p>No. There is no sign-in and no server. Your progress lives on your device.</p>
+
+  <h3>Does it work without internet?</h3>
+  <p>Yes, entirely. The models, audio and content are all bundled.</p>
+
+  <h3>What is the AI tutor, and does it send my data anywhere?</h3>
+  <p>It answers questions about whatever structure you are looking at. By default it runs on-device with Apple Intelligence and sends nothing. You can optionally add your own Anthropic API key, in which case your question goes to Anthropic to be answered. See the <a href="privacy.html">privacy policy</a>.</p>
+
+  <h3>How do I wipe my progress?</h3>
+  <p>Settings → Reset progress. Or delete the app.</p>
+
+  <h3>Where does the anatomy come from?</h3>
+  <p>The 3D models are derived from <a href="https://www.z-anatomy.com">Z-Anatomy</a> (CC BY-SA 4.0), itself derived from BodyParts3D by the Database Center for Life Science, Japan. Full attribution, including the non-commercially-licensed parts that were removed, is in the app under Settings → Credits &amp; licenses.</p>
+</div>
+
+<footer>
+<a href="privacy.html">Privacy policy</a> · BodyQuest is an educational study aid and is not a medical device. It is not intended for diagnosis or treatment.
+</footer>
+</main>
+</body>
+</html>
