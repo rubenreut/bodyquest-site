@@ -2,68 +2,607 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Anatomy Recall — 3D anatomy you actually recall</title>
+<meta name="description" content="A complete human body you can spin, peel and tap, wired to a spaced-repetition engine that decides what to ask you and when. 872 structures, every muscle's nerve supply with root values. €6.99 once, no subscription.">
+<meta name="theme-color" content="#06080c">
+<link rel="canonical" href="https://rubenreut.github.io/bodyquest-site/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Anatomy Recall — 3D anatomy you actually recall">
+<meta property="og:description" content="872 structures. Every muscle's nerve supply with root values. Spaced repetition that decides what to ask you and when. €6.99 once.">
+<meta property="og:image" content="https://rubenreut.github.io/bodyquest-site/media/app-hero-poster.jpg?v=2">
+<meta property="og:url" content="https://rubenreut.github.io/bodyquest-site/">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="media/icon-180.png">
+<link rel="preload" href="media/inter.woff2" as="font" type="font/woff2" crossorigin>
+
 <style>
-:root{--bg:#f6f8fb;--card:#fff;--ink:#0f1723;--ink2:#3d4b5c;--ink3:#78879a;--line:#e3e9f0;--accent:#2563eb}
-@media (prefers-color-scheme:dark){:root{--bg:#0d1219;--card:#151d28;--ink:#eef3f9;--ink2:#b8c4d2;--ink3:#7c8b9d;--line:#243040}}
+/* Inter, the same variable face the app bundles (SIL OFL 1.1) */
+@font-face{
+  font-family:"Inter";
+  src:url("media/inter.woff2") format("woff2-variations"),url("media/inter.woff2") format("woff2");
+  font-weight:100 900;
+  font-style:normal;
+  font-display:swap;
+}
+
+:root{
+  --bg:#06080c;
+  --bg2:#0b1018;
+  --surface:#101724;
+  --surface2:#161f2e;
+  --line:rgba(255,255,255,.085);
+  --line2:rgba(255,255,255,.16);
+  --ink:#f3f7fc;
+  --ink2:#a7b7ca;
+  --ink3:#6d7e93;
+  --accent:#4d8bff;
+  --accent2:#22d3ee;
+  --gold:#f5c451;
+  --good:#34d399;
+  --maxw:1120px;
+  --pad:clamp(20px,5vw,40px);
+}
+
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;padding:48px 20px 96px}
-main{max-width:760px;margin:0 auto}
-h1{font-size:40px;margin:0 0 6px;letter-spacing:-.03em}
-.tag{color:var(--ink3);font-size:18px;margin:0 0 36px}
-h2{font-size:20px;margin:40px 0 12px;letter-spacing:-.01em}
-p,li{color:var(--ink2)}
-ul{padding-left:20px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:26px 0}
-.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
-.card h3{margin:0 0 6px;font-size:16px;color:var(--ink)}
-.card p{margin:0;font-size:15px}
-a{color:var(--accent)}
-.qa{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:4px 22px;margin:22px 0}
-.qa h3{font-size:16px;margin:18px 0 6px;color:var(--ink)}
-.qa p{margin:0 0 18px;font-size:15px}
-footer{margin-top:52px;padding-top:20px;border-top:1px solid var(--line);color:var(--ink3);font-size:14px}
+html{-webkit-text-size-adjust:100%;overflow-x:hidden;overflow-x:clip}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  font-feature-settings:"kern" 1,"liga" 1,"calt" 1;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  overflow-x:clip;
+}
+img,video{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+h1,h2,h3{margin:0;letter-spacing:-.035em;line-height:1.05;font-weight:800}
+p{margin:0}
+.wrap{max-width:var(--maxw);margin:0 auto;padding-inline:var(--pad)}
+
+/* ------------------------------------------------------------ masthead */
+.masthead{position:relative;z-index:3;padding-block:14px}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px}
+.mark{font-weight:700;font-size:15.5px;letter-spacing:-.02em;color:var(--ink)}
+.navlinks{display:flex;gap:20px;font-size:14.5px}
+.navlinks a{color:var(--ink2);font-weight:550}
+.navlinks a:hover{color:var(--ink);text-decoration:none}
+
+/* ---------------------------------------------------------------- hero */
+.hero{position:relative;padding-bottom:clamp(40px,5vw,64px)}
+.hero::before{
+  content:"";position:absolute;inset:-20% -30% 40% -30%;z-index:0;pointer-events:none;
+  background:radial-gradient(60% 55% at 50% 22%,#35455f 0%,#1b2434 42%,rgba(15,20,29,0) 72%);
+  opacity:.55;
+}
+.hero>*{position:relative;z-index:1}
+
+.videowrap{
+  position:relative;
+  width:100%;
+  aspect-ratio:660/1434;
+  max-height:52svh;
+  overflow:hidden;
+  background:#000;
+  border-bottom:1px solid var(--line);
+}
+.videowrap video{width:100%;height:100%;object-fit:cover;object-position:50% 34%}
+.videowrap::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:40%;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(6,8,12,0) 0%,rgba(6,8,12,.72) 62%,var(--bg) 100%);
+}
+.sound{
+  position:absolute;z-index:2;right:12px;top:12px;
+  width:38px;height:38px;border-radius:999px;
+  display:grid;place-items:center;
+  background:rgba(8,12,18,.78);border:1px solid var(--line2);
+  color:var(--ink);cursor:pointer;
+}
+.sound:hover{background:rgba(8,12,18,.85)}
+.sound svg{width:17px;height:17px;fill:currentColor}
+
+.copy{padding-top:clamp(16px,3vw,24px)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink2);
+  background:rgba(255,255,255,.045);border:1px solid var(--line);
+  padding:6px 13px;border-radius:999px;margin-bottom:16px;
+}
+.dot{width:6px;height:6px;border-radius:999px;background:var(--gold);box-shadow:0 0 10px var(--gold)}
+h1{font-size:clamp(37px,7vw,57px)}
+h1 .thin{display:block;font-weight:400;color:var(--ink2);letter-spacing:-.03em}
+.sub{margin-top:16px;font-size:clamp(16.5px,1.9vw,18.5px);color:var(--ink2);max-width:34em;line-height:1.55}
+.sub b{color:var(--ink);font-weight:600}
+
+/* ------------------------------------------------------------------ cta */
+/* SWAP ONE ATTRIBUTE ON <body>: data-cta="review" | "preorder" | "live" */
+.cta{margin-top:clamp(26px,4vw,34px)}
+body[data-cta="review"]   .cta-preorder,body[data-cta="review"]   .cta-live{display:none}
+body[data-cta="preorder"] .cta-review,  body[data-cta="preorder"] .cta-live{display:none}
+body[data-cta="live"]     .cta-review,  body[data-cta="live"]     .cta-preorder{display:none}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  height:54px;padding:0 26px;border-radius:14px;
+  font-size:17px;font-weight:650;letter-spacing:-.01em;
+  border:1px solid transparent;cursor:pointer;text-decoration:none;
+  transition:transform .12s ease,box-shadow .18s ease,background .18s ease;
+}
+.btn:hover{text-decoration:none;transform:translateY(-1px)}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:0 8px 26px rgba(77,139,255,.34)}
+.btn-primary:hover{background:#639bff;box-shadow:0 10px 32px rgba(77,139,255,.46)}
+.btn-ghost{background:rgba(255,255,255,.05);border-color:var(--line2);color:var(--ink)}
+.btn-ghost:hover{background:rgba(255,255,255,.1)}
+
+.notify{
+  background:linear-gradient(180deg,var(--surface) 0%,rgba(16,23,36,.55) 100%);
+  border:1px solid var(--line);border-radius:20px;
+  padding:clamp(20px,3.4vw,26px);max-width:520px;
+}
+.notify h3{font-size:19px;letter-spacing:-.02em}
+.notify p{margin-top:7px;font-size:15px;color:var(--ink2);line-height:1.5}
+.row{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+.row input{
+  flex:1 1 210px;min-width:0;height:54px;padding:0 16px;
+  border-radius:14px;border:1px solid var(--line2);
+  background:rgba(0,0,0,.32);color:var(--ink);
+  font:inherit;font-size:16px;
+}
+.row input::placeholder{color:var(--ink3)}
+.row input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(77,139,255,.22)}
+.row .btn{flex:0 0 auto}
+.fineprint{margin-top:12px;font-size:13px;color:var(--ink3);line-height:1.45}
+.or{display:flex;align-items:center;gap:12px;margin:18px 0 0;color:var(--ink3);font-size:13px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.formmsg{margin-top:12px;font-size:15px;color:var(--good);display:none}
+
+/* --------------------------------------------------------------- stats */
+.stats{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  margin-top:clamp(34px,4.5vw,48px);
+}
+.stat{background:var(--bg2);padding:clamp(18px,3vw,26px)}
+.stat b{display:block;font-size:clamp(26px,4.4vw,38px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.stat span{display:block;margin-top:8px;font-size:14.5px;color:var(--ink2);line-height:1.4}
+.stat.hl b{color:var(--accent2)}
+
+/* -------------------------------------------------------------- panels */
+section{padding-block:clamp(48px,6vw,78px)}
+.kicker{font-size:12.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--accent2);margin-bottom:14px}
+h2{font-size:clamp(27px,3.9vw,38px)}
+.lede{margin-top:16px;font-size:clamp(16.5px,2vw,19px);color:var(--ink2);max-width:36em;line-height:1.55}
+
+.feature{display:grid;gap:clamp(24px,4vw,52px);align-items:center}
+.feature+.feature{margin-top:clamp(34px,4vw,52px)}
+.media{
+  display:grid;place-items:center;
+  padding:clamp(22px,3.6vw,38px);
+  border-radius:24px;border:1px solid var(--line);
+  background:radial-gradient(120% 90% at 50% 0%,#243147 0%,#141c29 48%,#0c1119 100%);
+}
+.feature .shot{
+  border-radius:22px;border:1px solid var(--line2);overflow:hidden;
+  box-shadow:0 20px 52px rgba(0,0,0,.66);background:#fff;
+  width:100%;max-width:230px;
+}
+/* A cropped, legible slice of a real screen. Whole phone screenshots are
+   unreadable at this width and stop earning their space. */
+.feature .detail{
+  width:100%;max-width:430px;
+  border-radius:14px;border:1px solid var(--line2);
+  box-shadow:0 20px 52px rgba(0,0,0,.66);background:#fff;
+}
+.feature h3{font-size:clamp(21px,2.5vw,26px)}
+.feature p{margin-top:14px;color:var(--ink2);font-size:16.5px;line-height:1.6}
+.tick{margin:18px 0 0;padding:0;list-style:none}
+.tick li{position:relative;padding-left:26px;margin-top:9px;color:var(--ink2);font-size:16px}
+.tick li::before{
+  content:"";position:absolute;left:2px;top:9px;width:9px;height:9px;border-radius:3px;
+  background:var(--accent);opacity:.85;
+}
+
+/* ------------------------------------------------------------- gallery */
+.gallery{
+  display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding:4px 0 22px;margin-top:clamp(28px,4vw,40px);
+  -webkit-overflow-scrolling:touch;scrollbar-width:none;
+}
+.gallery::-webkit-scrollbar{display:none}
+.gallery figure{margin:0;flex:1 1 0;min-width:214px;max-width:270px;scroll-snap-align:center}
+.gallery img{
+  width:100%;border-radius:22px;border:1px solid var(--line2);
+  box-shadow:0 18px 46px rgba(0,0,0,.55);background:#fff;
+}
+.gallery figcaption{margin-top:12px;font-size:14px;color:var(--ink3);text-align:center}
+
+/* ---------------------------------------------------------------- band */
+.band{
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,#04060a 18%,#04060a 82%,rgba(0,0,0,0) 100%);
+  border-block:1px solid var(--line);
+}
+.bandgrid{display:grid;gap:clamp(26px,4vw,56px);align-items:center}
+.bandvid{
+  position:relative;width:100%;max-width:300px;margin-inline:auto;
+  aspect-ratio:9/16;overflow:hidden;background:#000;
+  border-radius:24px;border:1px solid var(--line2);
+  box-shadow:0 28px 76px rgba(0,0,0,.7);
+}
+.bandvid video{width:100%;height:100%;object-fit:cover}
+.band h2{margin-top:4px}
+@media (min-width:820px){
+  .bandgrid{grid-template-columns:auto 1fr}
+  .bandvid{margin-inline:0;max-width:290px}
+}
+
+/* --------------------------------------------------------------- price */
+.price{
+  background:linear-gradient(150deg,#12203a 0%,var(--surface) 55%);
+  border:1px solid var(--line2);border-radius:26px;
+  padding:clamp(26px,5vw,52px);text-align:center;
+}
+.price .amount{font-size:clamp(48px,9vw,78px);font-weight:800;letter-spacing:-.05em;line-height:1}
+.price .once{font-size:clamp(16px,2.2vw,19px);color:var(--ink2);margin-top:12px}
+.price ul{list-style:none;padding:0;margin:26px auto 0;max-width:430px;text-align:left}
+.price li{position:relative;padding-left:28px;margin-top:11px;color:var(--ink2);font-size:16px}
+.price li::before{content:"✓";position:absolute;left:0;top:-1px;color:var(--good);font-weight:700}
+
+/* ------------------------------------------------------------- support */
+.qa{border-top:1px solid var(--line)}
+.qa details{border-bottom:1px solid var(--line);padding:4px 0}
+.qa summary{
+  cursor:pointer;list-style:none;padding:18px 34px 18px 0;position:relative;
+  font-weight:600;font-size:17px;color:var(--ink);
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::after{
+  content:"";position:absolute;right:6px;top:26px;width:9px;height:9px;
+  border-right:2px solid var(--ink3);border-bottom:2px solid var(--ink3);
+  transform:rotate(45deg);transition:transform .18s ease;
+}
+.qa details[open] summary::after{transform:rotate(-135deg)}
+.qa details p{padding:0 0 20px;color:var(--ink2);font-size:16px;line-height:1.6;max-width:62ch}
+.qa details p+p{padding-top:0;margin-top:-8px}
+
+footer{border-top:1px solid var(--line);padding-block:40px 60px;color:var(--ink3);font-size:14.5px;line-height:1.6}
+footer a{color:var(--ink2)}
+footer .flinks{display:flex;flex-wrap:wrap;gap:8px 20px;margin-bottom:18px}
+footer .flinks a{font-weight:550}
+.disclaimer{max-width:64ch}
+
+/* ------------------------------------------------------------ desktop */
+@media (min-width:820px){
+  .hero{padding-top:clamp(24px,3vw,44px)}
+  .hero .wrap:first-of-type{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(36px,5vw,68px);align-items:center}
+  .videowrap{
+    order:2;max-height:none;border:1px solid var(--line2);border-radius:28px;
+    box-shadow:0 34px 90px rgba(0,0,0,.66);max-width:372px;justify-self:end;width:100%;
+  }
+  .videowrap::after{display:none}
+  .copy{order:1;padding-top:0}
+  .stats{grid-template-columns:repeat(4,1fr)}
+  .feature{grid-template-columns:1fr 1fr}
+  .feature.flip .media{order:2}
+  .feature .shot{max-width:224px}
+  .feature .detail{max-width:100%}
+  .gallery figure{min-width:0}
+}
+@media (max-width:819px){
+  .videowrap{margin-inline:calc(var(--pad) * -1);width:calc(100% + var(--pad) * 2)}
+  .hero{padding-top:0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
 </style>
 </head>
-<body>
+
+<!-- ================================================================== -->
+<!-- LAUNCH SWITCH. Change this one attribute, nothing else:            -->
+<!--   data-cta="review"    app is in App Store review (now)            -->
+<!--   data-cta="preorder"  approved, pre-order is open                 -->
+<!--   data-cta="live"      on sale                                     -->
+<!-- ================================================================== -->
+<body data-cta="review">
+
+<nav class="masthead">
+  <div class="wrap">
+    <span class="mark">Anatomy&nbsp;Recall</span>
+    <span class="navlinks">
+      <a href="#support">Support</a>
+      <a href="privacy.html">Privacy</a>
+    </span>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+
+    <div class="videowrap">
+      <video id="hero" autoplay muted loop playsinline preload="auto" poster="media/app-hero-poster.jpg?v=2">
+        <source src="media/app-hero.mp4?v=2" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="copy">
+      <span class="eyebrow"><span class="dot"></span> iPhone &amp; iPad</span>
+
+      <h1>Anatomy you<br>actually recall.<span class="thin">Not just recognise.</span></h1>
+
+      <p class="sub">A complete human body you can spin, peel and tap, wired to a spaced&#8209;repetition engine that decides what to ask you and when. <b>872 structures.</b> Every muscle's nerve supply, with root values.</p>
+
+      <div class="cta">
+
+        <!-- ---------------------------------------------------- in review -->
+        <div class="cta-review">
+          <div class="notify">
+            <h3>It lands in a few days</h3>
+            <p>Anatomy Recall is with Apple for review right now. Leave your email and you get one message, on the morning it goes live. Nothing else, ever.</p>
+            <form id="notifyform" class="row" method="POST" action="" novalidate>
+              <input type="email" name="email" placeholder="you@university.edu" autocomplete="email" required>
+              <button class="btn btn-primary" type="submit">Notify me</button>
+            </form>
+            <p class="formmsg" id="formmsg">You're on the list. See you at launch.</p>
+            <p class="fineprint" id="mailfine">One email, at launch. No newsletter, no sharing your address with anyone.</p>
+            <div class="or" id="mailor">or</div>
+            <div class="row">
+              <a class="btn btn-ghost" id="tiktokbtn" href="https://www.tiktok.com/@toolsforschool" rel="noopener">Follow @toolsforschool</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- --------------------------------------------------- pre-order -->
+        <div class="cta-preorder">
+          <a class="btn btn-primary" href="https://apps.apple.com/app/id6804860511">Pre-order on the App Store</a>
+          <p class="fineprint">€6.99, charged on release day. It downloads itself the morning it launches.</p>
+        </div>
+
+        <!-- -------------------------------------------------------- live -->
+        <div class="cta-live">
+          <a class="btn btn-primary" href="https://apps.apple.com/app/id6804860511">Download on the App Store</a>
+          <p class="fineprint">€6.99 once. iPhone and iPad. No subscription, no account.</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat"><b>872</b><span>structures across five systems</span></div>
+      <div class="stat hl"><b>212</b><span>muscles with nerve supply and root values</span></div>
+      <div class="stat"><b>7</b><span>ways a structure can be asked</span></div>
+      <div class="stat"><b>0</b><span>internet needed, ever</span></div>
+    </div>
+  </div>
+</header>
+
 <main>
-<h1>Anatomy Recall</h1>
-<p class="tag">3D anatomy you actually recall.</p>
 
-<p>A complete human body you can spin, peel and tap, wired to a spaced-repetition engine that decides what to ask you and when. Built for medical, dental, physio, nursing and sports-science students who have to <em>keep</em> the names, not just meet them once.</p>
+<section class="band">
+  <div class="wrap bandgrid">
+    <div class="bandvid">
+      <video id="nerve" muted loop playsinline preload="none" poster="media/nerve-poster.jpg?v=2">
+        <source src="media/nerve.mp4?v=2" type="video/mp4">
+      </video>
+      <button class="sound" id="soundbtn" type="button" aria-label="Unmute video">
+        <svg id="ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12.5 3 3 3-1.4 1.4-3-3-3 3L10.7 15l3-3-3-3L12.1 7.6l3 3 3-3L19.5 9l-3 3z"/></svg>
+        <svg id="ico-on" viewBox="0 0 24 24" aria-hidden="true" style="display:none"><path d="M4 9v6h4l5 4V5L8 9H4zm11.5 3a4 4 0 0 0-2.2-3.6v7.2A4 4 0 0 0 15.5 12zm-2.2-7.6v2.1a6 6 0 0 1 0 11v2.1a8 8 0 0 0 0-15.2z"/></svg>
+      </button>
+    </div>
+    <div>
+      <p class="kicker">Why it is built around nerves</p>
+      <h2>One nerve.<br>Three muscles.</h2>
+      <p class="lede">The musculocutaneous nerve leaves C5 and C6, passes through coracobrachialis, and supplies biceps brachii and brachialis on the way down. Learn the nerve and you have learned three muscles at once, which is exactly how you get asked it in a viva.</p>
+      <p class="fineprint" style="margin-top:18px">Tap the clip if you want to hear it.</p>
+    </div>
+  </div>
+</section>
 
-<div class="grid">
-  <div class="card"><h3>872 structures</h3><p>Bones, muscles, organs, vessels and the full nervous system — brain, cord, plexuses and named nerves.</p></div>
-  <div class="card"><h3>Seven ways to be asked</h3><p>Tap it on the body, name it, type it, hear it, odd-one-out, name the nerve that supplies it, and clinical cases.</p></div>
-  <div class="card"><h3>Innervation built in</h3><p>Every one of the 212 muscles carries its nerve supply with root values, linked to the nerve in the model.</p></div>
-  <div class="card"><h3>Works offline</h3><p>The whole atlas is in the download. No account, no sign-in, nothing to sync.</p></div>
-</div>
+<section class="wrap">
+  <p class="kicker">The problem</p>
+  <h2>Atlases are beautiful.<br>You still forget them.</h2>
+  <p class="lede">You meet a structure once, nod, and lose it by Thursday. Anatomy Recall is built around the part that actually takes work: keeping the names after you have met them.</p>
 
-<h2>Support</h2>
-<p>Found a bug, spotted a factual error in the anatomy, or want something added? <a href="https://github.com/rubenreut/bodyquest-site/issues">Open an issue</a> and it will be read.</p>
-<p>Corrections to anatomical content are especially welcome — say which structure and what is wrong, and it gets fixed in the next update.</p>
+  <div style="margin-top:clamp(44px,7vw,72px)">
 
-<div class="qa">
-  <h3>Do I need an account?</h3>
-  <p>No. There is no sign-in and no server. Your progress lives on your device.</p>
+    <div class="feature">
+      <div class="media">
+        <img class="shot" src="media/shot-02-explore.jpg" width="540" height="1174" alt="The 3D body in Explore, with filter chips for bones, muscles, organs, nerves and brain" loading="lazy">
+      </div>
+      <div>
+        <h3>A whole body, in your hand</h3>
+        <p>Spin it, peel the superficial muscles away to reach what is underneath, and drop every other layer to see the brain inside the skull. Tap anything to identify it.</p>
+        <ul class="tick">
+          <li>Skeleton, muscles, organs and vessels, and the full nervous system</li>
+          <li>Brain, spinal cord, plexuses and every named nerve</li>
+          <li>Built on Z&#8209;Anatomy, the open anatomical atlas</li>
+        </ul>
+      </div>
+    </div>
 
-  <h3>Does it work without internet?</h3>
-  <p>Yes, entirely. The models, audio and content are all bundled.</p>
+    <div class="feature flip">
+      <div class="media">
+        <img class="detail" src="media/detail-innervation.jpg" width="880" height="631" alt="The biceps brachii card: origin, insertion, action, and an innervation block reading Musculocutaneous nerve C5 to C6" loading="lazy">
+      </div>
+      <div>
+        <h3>Every muscle's nerve supply</h3>
+        <p>Musculocutaneous nerve, C5 to C6. All 212 muscles carry their innervation with root values, and the nerve is a link, so you can jump from the muscle to the nerve and back.</p>
+        <ul class="tick">
+          <li>Origin, insertion and action on the same card</li>
+          <li>Clinical notes where a structure actually matters in practice</li>
+          <li>A quiz mode that asks nothing but "which nerve supplies it?"</li>
+        </ul>
+      </div>
+    </div>
 
-  <h3>What is the AI tutor, and does it send my data anywhere?</h3>
-  <p>It answers questions about whatever structure you are looking at. By default it runs on-device with Apple Intelligence and sends nothing. You can optionally add your own Anthropic API key, in which case your question goes to Anthropic to be answered. See the <a href="privacy.html">privacy policy</a>.</p>
+    <div class="feature">
+      <div class="media">
+        <img class="detail" src="media/detail-progress.jpg" width="880" height="785" alt="Progress: day streak, total XP and level, above per-region mastery bars" loading="lazy">
+      </div>
+      <div>
+        <h3>It decides what to ask you</h3>
+        <p>An FSRS spaced-repetition scheduler tracks every structure separately and surfaces the ones about to fade. You open the app and start, rather than deciding what to revise.</p>
+        <ul class="tick">
+          <li>Seven question types, including audio and typed recall</li>
+          <li>Per-region mastery, so you can see the gaps</li>
+          <li>Boss exams when a region is ready to be tested properly</li>
+        </ul>
+      </div>
+    </div>
 
-  <h3>How do I wipe my progress?</h3>
-  <p>Settings → Reset progress. Or delete the app.</p>
+  </div>
+</section>
 
-  <h3>Where does the anatomy come from?</h3>
-  <p>The 3D models are derived from <a href="https://www.z-anatomy.com">Z-Anatomy</a> (CC BY-SA 4.0), itself derived from BodyParts3D by the Database Center for Life Science, Japan. Full attribution, including the non-commercially-licensed parts that were removed, is in the app under Settings → Credits &amp; licenses.</p>
-</div>
+<section class="wrap">
+  <p class="kicker">Also inside</p>
+  <h2>Lessons, the brain, and nerve drilling</h2>
+  <div class="gallery">
+    <figure><img src="media/shot-01-learn.jpg" width="540" height="1174" alt="The Learn tab with lessons grouped by region" loading="lazy"><figcaption>A path through 78 lessons, grouped by region</figcaption></figure>
+    <figure><img src="media/shot-03-brain.jpg" width="540" height="1174" alt="The brain visible with the skull hidden" loading="lazy"><figcaption>Drop the skull and the lobes are right there</figcaption></figure>
+    <figure><img src="media/shot-06-nerve-quiz.jpg" width="540" height="1174" alt="A which-nerve-supplies-it question" loading="lazy"><figcaption>Which nerve supplies it, over and over</figcaption></figure>
+  </div>
+</section>
 
-<footer>
-<a href="privacy.html">Privacy policy</a> · Anatomy Recall is an educational study aid and is not a medical device. It is not intended for diagnosis or treatment.
-</footer>
+<section class="wrap">
+  <div class="price">
+    <div class="amount">€6.99</div>
+    <p class="once">Once. Not a subscription, not a trial, not a per-year student licence.</p>
+    <ul>
+      <li>Every structure and every question type included</li>
+      <li>iPhone and iPad, one purchase</li>
+      <li>No account, no sign-in, no server holding your progress</li>
+      <li>Works with the phone in flight mode</li>
+    </ul>
+    <p class="fineprint" style="max-width:46em;margin:26px auto 0">For comparison, Complete Anatomy's student licence runs at <a href="https://www.elsevier.support/complete-anatomy/answer/how-does-pricing-work" rel="noopener">$74.99 a year after the introductory year</a>. Anatomy Recall is a single purchase.</p>
+  </div>
+</section>
+
+<section class="wrap" id="support">
+  <p class="kicker">Support</p>
+  <h2>Questions, and how to reach a human</h2>
+  <p class="lede">Found a bug, spotted a factual error in the anatomy, or want something added? <a href="https://github.com/rubenreut/bodyquest-site/issues">Open an issue</a> and it will be read. Corrections to anatomical content are especially welcome: say which structure and what is wrong, and it gets fixed in the next update.</p>
+
+  <div class="qa" style="margin-top:clamp(32px,5vw,52px)">
+    <details>
+      <summary>Do I need an account?</summary>
+      <p>No. There is no sign-in and no server. Your progress lives on your device.</p>
+    </details>
+    <details>
+      <summary>Does it work without internet?</summary>
+      <p>Yes, entirely. The models, audio and content are all bundled in the download.</p>
+    </details>
+    <details>
+      <summary>What is the AI tutor, and does it send my data anywhere?</summary>
+      <p>It answers questions about whatever structure you are looking at. By default it runs on-device with Apple Intelligence and sends nothing. You can optionally add your own Anthropic API key, in which case your question goes to Anthropic to be answered. The <a href="privacy.html">privacy policy</a> has the detail.</p>
+    </details>
+    <details>
+      <summary>How do I wipe my progress?</summary>
+      <p>Settings, then Reset progress. Or delete the app.</p>
+    </details>
+    <details>
+      <summary>Where does the anatomy come from?</summary>
+      <p>The 3D models are derived from <a href="https://www.z-anatomy.com" rel="noopener">Z-Anatomy</a> (CC BY-SA 4.0), itself derived from BodyParts3D by the Database Center for Life Science, Japan. Full attribution, including the non-commercially-licensed parts that were removed, is in the app under Settings, then Credits and licenses.</p>
+    </details>
+    <details>
+      <summary>Is there an Android version?</summary>
+      <p>Not yet. It is native iOS and iPadOS, and a Mac version is in preparation.</p>
+    </details>
+  </div>
+</section>
+
 </main>
+
+<footer class="wrap">
+  <div class="flinks">
+    <a href="privacy.html">Privacy policy</a>
+    <a href="https://github.com/rubenreut/bodyquest-site/issues">Support</a>
+    <a href="https://www.tiktok.com/@toolsforschool" rel="noopener">TikTok</a>
+    <a href="https://www.z-anatomy.com" rel="noopener">Z-Anatomy</a>
+  </div>
+  <p class="disclaimer">Anatomy Recall is an educational study aid and is not a medical device. It is not intended for diagnosis or treatment. 3D models derived from Z-Anatomy, CC BY-SA 4.0. Inter typeface, SIL Open Font License 1.1.</p>
+  <p style="margin-top:14px">&copy; 2026 Ruben Reut</p>
+</footer>
+
+<script>
+// Unmute toggle. The clip has a voiceover; it stays muted so autoplay works.
+(function(){
+  // The hero keeps decoding while you read the rest of the page unless it is
+  // stopped, and two videos decoding at once is what makes scrolling stutter.
+  var heroV=document.getElementById('hero');
+  if(heroV && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting) heroV.play().catch(function(){});
+        else heroV.pause();
+      });
+    },{threshold:.1}).observe(heroV);
+  }
+
+  var v=document.getElementById('nerve'),b=document.getElementById('soundbtn'),
+      on=document.getElementById('ico-on'),off=document.getElementById('ico-off');
+  if(!v||!b)return;
+  b.addEventListener('click',function(){
+    v.muted=!v.muted;
+    on.style.display=v.muted?'none':'block';
+    off.style.display=v.muted?'block':'none';
+    b.setAttribute('aria-label',v.muted?'Unmute video':'Mute video');
+    if(!v.muted)v.play();
+  });
+  // The band clip is heavy, so it only loads and plays once it is on screen.
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(es){
+      es.forEach(function(e){
+        if(e.isIntersecting){ v.preload='auto'; v.play().catch(function(){}); }
+        else { v.pause(); }
+      });
+    },{threshold:.35}).observe(v);
+  } else {
+    v.preload='auto'; v.play().catch(function(){});
+  }
+})();
+
+// Waitlist. Set ENDPOINT to the Formspree/Kit/Tally POST url and it goes live.
+// Empty string = the field is disabled and the TikTok button carries the CTA.
+(function(){
+  var ENDPOINT="";
+  var f=document.getElementById('notifyform');
+  if(!f)return;
+  var input=f.querySelector('input'),btn=f.querySelector('button'),msg=document.getElementById('formmsg');
+  if(!ENDPOINT){
+    // No list yet. Hide the form rather than showing a dead field, and let
+    // the follow button carry the call to action.
+    ['notifyform','mailfine','mailor'].forEach(function(id){
+      var el=document.getElementById(id); if(el) el.style.display='none';
+    });
+    var t=document.getElementById('tiktokbtn');
+    if(t){t.className='btn btn-primary';t.style.marginTop='4px';}
+    var h=f.parentNode.querySelector('h3'),pp=f.parentNode.querySelector('p');
+    if(h) h.textContent='It lands in a few days';
+    if(pp) pp.textContent='Anatomy Recall is with Apple for review right now. The clips go up on TikTok first, and the launch gets posted there the morning it goes live.';
+    return;
+  }
+  f.setAttribute('action',ENDPOINT);
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!input.value||input.value.indexOf('@')<1){input.focus();return;}
+    btn.disabled=true;btn.textContent="Sending";
+    fetch(ENDPOINT,{method:'POST',headers:{'Accept':'application/json','Content-Type':'application/json'},
+      body:JSON.stringify({email:input.value})})
+      .then(function(){f.style.display='none';msg.style.display='block';})
+      .catch(function(){btn.disabled=false;btn.textContent="Notify me";msg.style.color="#f87171";
+        msg.textContent="That did not send. Try again, or follow on TikTok.";msg.style.display='block';});
+  });
+})();
+</script>
 </body>
 </html>
