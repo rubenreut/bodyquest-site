@@ -25,26 +25,28 @@ code{background:var(--line);padding:1px 5px;border-radius:5px;font-size:14px}
 <body>
 <main>
 <h1>Privacy Policy</h1>
-<p class="sub">Anatomy Recall for iPhone and iPad · last updated 24 August 2026</p>
+<p class="sub">Anatomy Recall for iPhone and iPad · last updated 15 October 2026</p>
 
 <div class="card">
-<p class="big">Anatomy Recall collects nothing about you.</p>
-<p style="margin:8px 0 0">No account, no sign-in, no analytics, no advertising, no tracking, no third-party SDKs. Your study history never leaves your device.</p>
+<p class="big">Anatomy Recall collects nothing that identifies you.</p>
+<p style="margin:8px 0 0">No account, no sign-in, no advertising, no tracking. Since version 1.1 the app sends anonymous usage counts (which screens and study modes get used, never what you typed or anything that names you) so it can be improved, as described below. Your study history never leaves your device.</p>
 </div>
 
 <h2>What is stored, and where</h2>
 <p>Everything the app remembers — which structures you have learned, your review schedule, streak, XP, quiz results and settings — is written to a database inside the app's own container on your device. It is not uploaded anywhere. It is included in your device backup if you back up your iPhone or iPad, and it is deleted when you delete the app.</p>
 
 <h2>Network use</h2>
-<p>The app is fully offline. The 3D models, audio pronunciations and all anatomy content are bundled in the download; nothing is fetched at runtime.</p>
-<p>There is exactly one case where the app makes a network request:</p>
+<p>The app works fully offline. The 3D models, audio pronunciations and all anatomy content are bundled in the download; nothing is fetched at runtime.</p>
+<p>There are two cases where the app makes a network request:</p>
 <ul>
-<li><strong>The optional AI tutor.</strong> By default it runs entirely on your device using Apple Intelligence, and nothing is transmitted. If — and only if — you choose to paste your own Anthropic API key into Settings, your typed question and the name of the structure you asked about are sent to Anthropic's API (<code>api.anthropic.com</code>) to generate the answer. That is your own key and your own account with Anthropic; their handling of that request is covered by <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. The key is stored on your device only. Remove it from Settings and the app stops making network requests entirely.</li>
+<li><strong>Anonymous usage analytics (version 1.1 and later).</strong> To learn how the app is actually used, the app sends short anonymous events to <a href="https://telemetrydeck.com/privacy/">TelemetryDeck</a>, a privacy-focused analytics service: for example that a study session, tour, exam or lab practical started or finished, how many items it had, how far it got, how many answers were right and how long it took, and how long Explore was open. Each event also carries the app version, device model, operating system version and language. It never includes your name, email address, what you type, your study history as a whole, or the advertising identifier. The install is counted with a random identifier that TelemetryDeck hashes before it is stored, so events cannot be traced back to you. Nothing is used for advertising or tracking, sold or shared with data brokers. The Apple TV app does not send analytics.</li>
+<li><strong>The optional AI tutor.</strong> By default it runs entirely on your device using Apple Intelligence, and nothing is transmitted. If — and only if — you choose to paste your own Anthropic API key into Settings, your typed question and the name of the structure you asked about are sent to Anthropic's API (<code>api.anthropic.com</code>) to generate the answer. That is your own key and your own account with Anthropic; their handling of that request is covered by <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. The key is stored on your device only. Remove it from Settings and the app stops sending anything to Anthropic.</li>
 </ul>
+<p><strong>The camera (AR mode).</strong> On iPhone and iPad, AR mode uses the camera, and on LiDAR devices the depth sensor, to place the 3D body on a surface around you and to follow your hand. All of this is processed on your device; no images, video or depth data are stored or sent anywhere. If you use Record in AR mode, the clip is made by Apple's screen recorder and saved only where you choose.</p>
 <p>Tapping a "Source: Wikipedia" link opens Safari, which is governed by Apple's and Wikimedia's own policies.</p>
 
 <h2>Children</h2>
-<p>Anatomy Recall does not collect personal information from anyone, including children. There is no account, no messaging between users, and no user-generated content shared with anyone.</p>
+<p>Anatomy Recall does not collect personal information from anyone, including children; the anonymous usage events above contain none. There is no account, no messaging between users, and no user-generated content shared with anyone.</p>
 
 <h2>Your choices</h2>
 <ul>
