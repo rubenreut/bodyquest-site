@@ -7,14 +7,14 @@
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="dark">
 <title>Anatomy Recall — Privacy Policy</title>
-<meta name="description" content="Anatomy Recall collects nothing about you. No account, no analytics, no tracking. Your study history stays on your device unless you add your own Claude API key for the optional tutor.">
+<meta name="description" content="Anatomy Recall collects nothing that identifies you. No account, no advertising, no tracking. Anonymous usage counts help improve the app; your study history stays on your device.">
 <meta name="theme-color" content="#06080c">
 <link rel="canonical" href="https://rubenreut.github.io/bodyquest-site/privacy.html">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Anatomy Recall">
 <meta property="og:title" content="Anatomy Recall — Privacy Policy">
-<meta property="og:description" content="Anatomy Recall collects nothing about you. No account, no analytics, no tracking. Your study history stays on your device unless you add your own Claude API key for the optional tutor.">
+<meta property="og:description" content="Anatomy Recall collects nothing that identifies you. No account, no advertising, no tracking. Anonymous usage counts help improve the app; your study history stays on your device.">
 <meta property="og:image" content="https://rubenreut.github.io/bodyquest-site/media/og-1200x630.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -101,20 +101,21 @@ footer a{color:var(--ink2)}
 
 <main>
 <h1>Privacy Policy</h1>
-<p class="sub">Anatomy Recall for iPhone and iPad &middot; last updated 6 September 2026</p>
+<p class="sub">Anatomy Recall for iPhone and iPad &middot; last updated 15 October 2026</p>
 
 <div class="card">
-<p class="big">Anatomy Recall collects nothing about you.</p>
-<p>No account, no sign-in, no analytics, no advertising, no tracking, no third-party SDKs. Your study history never leaves your device unless you choose to add your own Claude API key for the tutor, and then only what is described below is sent, only to Anthropic, only under your own account.</p>
+<p class="big">Anatomy Recall collects nothing that identifies you.</p>
+<p>No account, no sign-in, no advertising, no tracking. Since version 1.1 the app sends anonymous usage counts (which screens and study modes get used, never what you typed or anything that names you) so it can be improved, as described below. Your study history never leaves your device unless you choose to add your own Claude API key for the tutor, and then only what is described below is sent, only to Anthropic, only under your own account.</p>
 </div>
 
 <h2>What is stored, and where</h2>
 <p>Everything the app remembers, which is the structures you have learned, your review schedule, streak, XP, quiz results and settings, is written to a database on your device, in a container the app shares only with its own home-screen widget, which reads the same data to show your progress. It is not uploaded anywhere. It is included in your device backup if you back up your iPhone or iPad, and it is deleted when you delete the app.</p>
 
 <h2>Network use</h2>
-<p>The app is fully offline. The 3D models, audio pronunciations and all anatomy content are bundled in the download, and nothing is fetched at runtime.</p>
-<p>There is exactly one case where the app makes a network request:</p>
+<p>The app works fully offline. The 3D models, audio pronunciations and all anatomy content are bundled in the download, and nothing is fetched at runtime.</p>
+<p>There are two cases where the app makes a network request:</p>
 <ul>
+<li><strong>Anonymous usage analytics (version 1.1 and later).</strong> To learn how the app is actually used, the app sends short anonymous events to <a href="https://telemetrydeck.com/privacy/">TelemetryDeck</a>, a privacy-focused analytics service: for example that a study session, tour, exam or lab practical started or finished, how many items it had, how far it got, how many answers were right and how long it took, and how long Explore was open. Each event also carries the app version, device model, operating system version and language. It never includes your name, email address, what you type, your study history as a whole, or the advertising identifier. The install is counted with a random identifier that TelemetryDeck hashes before it is stored, so events cannot be traced back to you. Nothing is used for advertising or tracking, sold or shared with data brokers. The Apple TV app does not send analytics.</li>
 <li><strong>The optional AI tutor.</strong> The tutor answers questions about the structures you are studying. On devices with Apple Intelligence it runs entirely on your device and nothing is transmitted. The app uses Apple Intelligence whenever it is available, and only uses a Claude API key when it is not.
 <p>Nothing is ever sent anywhere unless you paste your own Claude API key into Settings. If you do, each tutor request goes to Anthropic's API (<code>api.anthropic.com</code>) to generate the answer, and carries:</p>
 <ul>
@@ -123,9 +124,10 @@ footer a{color:var(--ink2)}
 <li>the names of structures you recently studied (up to 20) and recently answered wrong (up to 10), so the answer can be tailored to what you are working on;</li>
 <li>whether the app is in simple or full mode.</li>
 </ul>
-<p>It does not include your name, email address, device identifiers, streak, XP or quiz scores. The key and the Anthropic account are your own, and Anthropic's handling of the request is covered by <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. The key is stored in the app's settings on your device, which means it is included in your device backups, and it is sent nowhere except to Anthropic as part of those requests. Remove it from Settings and the app stops making network requests entirely.</p>
+<p>It does not include your name, email address, device identifiers, streak, XP or quiz scores. The key and the Anthropic account are your own, and Anthropic's handling of the request is covered by <a href="https://www.anthropic.com/legal/privacy">Anthropic's privacy policy</a>. The key is stored in the app's settings on your device, which means it is included in your device backups, and it is sent nowhere except to Anthropic as part of those requests. Remove it from Settings and the app stops sending anything to Anthropic.</p>
 </li>
 </ul>
+<p><strong>The camera (AR mode).</strong> On iPhone and iPad, AR mode uses the camera, and on LiDAR devices the depth sensor, to place the 3D body on a surface around you and to follow your hand. All of this is processed on your device; no images, video or depth data are stored or sent anywhere. If you use Record in AR mode, the clip is made by Apple's screen recorder and saved only where you choose.</p>
 <p>Tapping a "Source: Wikipedia" link opens Safari, which is governed by Apple's and Wikimedia's own policies.</p>
 
 <h2>Things Apple runs</h2>
@@ -136,7 +138,7 @@ footer a{color:var(--ink2)}
 </ul>
 
 <h2>Children</h2>
-<p>Anatomy Recall does not collect personal information from anyone, including children. There is no account, no messaging between users, and no user-generated content shared with anyone.</p>
+<p>Anatomy Recall does not collect personal information from anyone, including children; the anonymous usage events above contain none. There is no account, no messaging between users, and no user-generated content shared with anyone.</p>
 
 <h2>Your choices</h2>
 <ul>
